@@ -581,6 +581,27 @@ FROM mmai_db.assignment01.bakery_sales
 GROUP BY unit_price
 ORDER BY 2 DESC;
 
+--- ADDTIONAL CONCEPTS FROM ALEX --
+-- Add Table based on current existence. We are adding an instructor table under the SCHEMA of "Schulich"
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'Schulich' AND TABLE_NAME = 'instructors')
+    BEGIN
+        CREATE TABLE schulich.instructors (
+            instructor_id  INTEGER IDENTITY(1,1) PRIMARY KEY,
+            first_name     VARCHAR(255),
+            last_name      VARCHAR(255),
+            date_of_birth  DATE,
+            annual_salary  NUMERIC)
+    END;
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'Schulich' AND TABLE_NAME = 'courses')
+    BEGIN
+        CREATE TABLE schulich.courses (
+            course_id       INTEGER IDENTITY(1,1) PRIMARY KEY,
+            course_name     VARCHAR(255),
+            course_credits  INTEGER
+        )
+    END;
 
 
 
